@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
+    <!-- Replace placeholder with either production or sandbox -->
+    <string name="payu_environment">sandbox</string>
+    <!-- Supported values are: auto, polish, english, german, czech or hungarian -->
+    <string name="payu_language">auto</string>
+    <bool name="payu_save_and_use_card">true</bool>
+    <bool name="payu_add_card_option">true</bool>
+    <bool name="payu_pbl_option">true</bool>
+    <string name="payu_payment_methods_fully_qualified_name">com.payu.android.front.sdk.demo.config.PaymentMethodsProvider</string>
+    <string name="payu_style_class_fully_qualified_name">com.payu.android.front.sdk.demo.config.CustomPayUStyle</string>
+    <!--NEW BLIK PAYMENT FLAG -->
+    <bool name="payu_blik_payment">true</bool>
+    <bool name="payu_card_scanner">true</bool>
+</resources>

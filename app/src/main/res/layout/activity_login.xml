@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.payu.android.front.sdk.demo.ui.login.LoginViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_main"
+        tools:context="com.payu.android.front.sdk.demo.ui.login.LoginActivity">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/payu_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/background_toolbar"
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@mipmap/ic_launcher_roll">
+
+            <TextView
+                android:id="@+id/toolbar_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:padding="@dimen/padding_default"
+                android:text="Pan Bułka"
+                android:textColor="@color/text_color_toolbar"
+                android:textSize="@dimen/text_size_title" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <EditText
+            android:id="@+id/posid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_login"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
+            android:text="@={model.posId}"
+            app:enabledIf="@{!model.showLoginProgress}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payu_toolbar" />
+
+        <EditText
+            android:id="@+id/client_secret"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_client_secret"
+            android:imeActionLabel="@string/login"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:text="@={model.clientSecret}"
+            app:enabledIf="@{!model.showLoginProgress}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/posid" />
+
+        <CheckBox
+            android:id="@+id/save_credentials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={model.isSaveCredentialsChecked}"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingBottom="@dimen/padding_large"
+            android:text="@string/save_credentials"
+            app:layout_constraintStart_toStartOf="@+id/client_secret"
+            app:layout_constraintTop_toBottomOf="@+id/client_secret" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="64dp"
+            android:onClick="@{() -> model.login()}"
+            android:text="@string/login"
+            app:enabledIf="@{model.isLoginDataValid &amp;&amp; !model.showLoginProgress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_secret"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/client_secret"
+            app:layout_constraintStart_toStartOf="@+id/client_secret"
+            app:layout_constraintTop_toBottomOf="@id/payu_toolbar"
+            app:layout_constraintVertical_bias="0.3"
+            app:visibleIf="@{model.showLoginProgress}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

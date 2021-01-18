@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+    <style name="MerchantStyle" parent="Theme.PayU.Fronts">
+        <item name="payu_styles_toolbarColor">@color/background_toolbar</item>
+        <item name="payu_styles_backgroundColor">@color/background_main</item>
+        <item name="payu_styles_separatorColor">#333333</item>
+        <item name="payu_styles_primaryColor">@color/colorPrimary</item>
+        <item name="payu_styles_accentColor">@android:color/holo_orange_dark</item>
+        <item name="payu_styles_windowContentPadding">15dp</item>
+        <item name="payu_styles_textStyleButtonBasic">@style/MerchantStyle.ButtonBasic</item>
+        <item name="payu_styles_textStyleButtonPrimary">@style/MerchantStyle.ButtonPrimary</item>
+        <item name="payu_styles_textStyleDescription">@style/MerchantStyle.Description</item>
+        <item name="payu_styles_textStyleTitle">@style/MerchantStyle.ToolbarText</item>
+
+    </style>
+
+    <style name="MerchantStyle.ButtonBasic" parent="TextAppearance.PayU.Button">
+        <item name="payu_styles_buttonBackgroundColor">@color/background_payu_widget</item>
+    </style>
+
+    <style name="MerchantStyle.ButtonPrimary" parent="TextAppearance.PayU.Button.Primary">
+        <item name="payu_styles_buttonBackgroundColor">@color/buttonColor</item>
+        <item name="payu_styles_textColor">@color/text_color_button</item>
+    </style>
+
+    <style name="MerchantStyle.Description" parent="Style.PayU.Fronts.DescriptionText">
+        <item name="payu_styles_textColor">@color/color_description</item>
+    </style>
+
+    <style name="MerchantStyle.ToolbarText" parent="TextAppearance.PayU.PrimaryHeaderText">
+        <item name="payu_styles_textColor">@color/text_color_toolbar</item>
+
+    </style>
+
+</resources>
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.payu.android.front.sdk.frontsdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--    Recomended permission for Wibmo SDK    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.payu.android.front.sdk.demo.DemoApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!-- display only PayU About -->
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.samples.AboutDemoActivity"
+            android:icon="@mipmap/ic_about"
+            android:label="AboutDemo" />
+        <!-- display module: WebPayment -->
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.samples.WebPaymentDemoActivity"
+            android:icon="@mipmap/ic_pbl"
+            android:label="WebPaymentDemo"
+            android:screenOrientation="portrait" />
+        <!-- display module: PaymentChooser with AddCard (optional) -->
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.samples.PaymentChooserDemoActivity"
+            android:screenOrientation="portrait" />
+        <!-- display module: AddCard -->
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.samples.AddNewCardDemoActivity"
+            android:label="Add New Card"
+            android:screenOrientation="portrait" />
+        <!-- Test Application with merchant flow, consist of all modules: WebPayment, new Add New Card and PaymentChooser -->
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.main.RollMainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.summary.RollSummaryActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.payu.android.front.sdk.demo.ui.login.LoginActivity"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_roll"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

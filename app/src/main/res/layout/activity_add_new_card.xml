@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/payu_styles_color_background"
+        android:orientation="vertical">
+
+        <com.payu.android.front.sdk.payment_add_card_module.view.NewCardView
+            android:id="@+id/new_card_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/save_and_use_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save and use card" />
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.payu.android.front.sdk.demo"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    androidExtensions {
+        experimental true
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$project.kotlin_version"
+
+    implementation "androidx.multidex:multidex:$project.multidexVersion"
+    implementation "androidx.appcompat:appcompat:$project.appCompatVersion"
+    implementation "com.google.android.material:material:$project.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$project.constraintLayoutVersion"
+    implementation "com.google.android.material:material:$project.materialVersion"
+    implementation "androidx.recyclerview:recyclerview:$project.recyclerViewVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycleComponentVersion"
+    implementation "com.google.guava:guava:$project.guavaVersion"
+
+    implementation 'com.github.nitrico.lastadapter:lastadapter:2.3.0'
+
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$project.glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$project.glideVersion"
+
+    // Dagger
+    kapt "com.google.dagger:dagger-compiler:2.26"
+    kapt "com.google.dagger:dagger-android-processor:2.26"
+    implementation "com.google.dagger:dagger:2.26"
+    implementation "com.google.dagger:dagger-android-support:2.26"
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit2Version"
+    implementation "com.squareup.retrofit2:converter-gson:$project.retrofit2Version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$project.okhttpLogInterceptorVersion"
+
+    // PayU
+    implementation "com.payu.android.front.sdk:payment-library-core-android:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-library-chooser-module:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-add-card-module:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-library-card-scanner:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-library-webview-module:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-library-google-pay-module:$project.payuSDK"
+    implementation "com.payu.android.front.sdk:payment-library-google-pay-adapter:$project.payuSDK"
+
+    testImplementation "junit:junit:$project.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$project.junitAssertionsVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$project.espressoVersion"
+}

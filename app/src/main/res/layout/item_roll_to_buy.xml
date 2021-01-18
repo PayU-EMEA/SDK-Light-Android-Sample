@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.payu.android.front.sdk.demo.model.RollModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_roll_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/rollName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@{item.namePrice}"
+            android:textColor="@color/color_text_primary"
+            tools:text="Bulka" />
+
+        <ImageView
+            android:id="@+id/rollImage_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:scaleType="center"
+            android:src="@{item.drawableImage}"
+            tools:src="@android:drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/rollPrice_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@{item.rollPriceString}"
+            android:textColor="@color/color_text_secondary"
+            tools:text="50 zł" />
+    </LinearLayout>
+</layout>
