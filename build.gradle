@@ -54,7 +54,7 @@ project.ext {
     okhttpLogInterceptorVersion = "4.8.0"
     playServicesVersion = "18.0.0"
     cardsPayVersion = "1.1.0"
-    payuSDK = "0.9.4"
+    payuSDK = "0.9.11"
 }
 
 project.ext {

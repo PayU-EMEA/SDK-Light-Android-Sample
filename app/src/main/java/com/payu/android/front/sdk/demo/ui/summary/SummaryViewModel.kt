@@ -3,11 +3,14 @@ package com.payu.android.front.sdk.demo.ui.summary
 import androidx.databinding.ObservableBoolean
 import com.google.gson.Gson
 import com.payu.android.front.sdk.demo.api.PayUApi
+import com.payu.android.front.sdk.demo.api.model.installments.InstallmentSelected
 import com.payu.android.front.sdk.demo.api.model.ocr.*
 import com.payu.android.front.sdk.demo.model.RollModel
 import com.payu.android.front.sdk.demo.model.toProduct
 import com.payu.android.front.sdk.demo.repository.AuthenticationRepository
+import com.payu.android.front.sdk.demo.repository.InstallmentRepository
 import com.payu.android.front.sdk.demo.repository.PaymentMethodsRepository
+import com.payu.android.front.sdk.demo.repository.PersistentRepository
 import com.payu.android.front.sdk.demo.ui.base.BaseViewModel
 import com.payu.android.front.sdk.demo.ui.base.SingleLiveEvent
 import com.payu.android.front.sdk.demo.ui.base.binding.ObservableString
@@ -29,6 +32,8 @@ private const val DESCRIPTION_PREFIX_FOR_3DS = "dementia_praecox=true"
 class SummaryViewModel(
     private val authRepository: AuthenticationRepository,
     private val paymentMethodsRepository: PaymentMethodsRepository,
+    private val persistentRepository: PersistentRepository,
+    private val installmentRepository: InstallmentRepository,
     private val payUApi: PayUApi,
     private val gson: Gson
 ) : BaseViewModel() {
@@ -55,6 +60,10 @@ class SummaryViewModel(
     val googlePayEvent = SingleLiveEvent<String>()
     val blikAmbiguityEvent = SingleLiveEvent<Unit>()
     val paymentEvent = SingleLiveEvent<AuthorizationDetails>()
+
+    val installmentProposalEvent = SingleLiveEvent<String>()
+    val installmentAlreadyTaken = SingleLiveEvent<Unit>()
+    val installmentOption = ObservableBoolean(false)
 
     private fun getOrderCreateRequest(
         paymentMethod: PaymentMethod,
@@ -265,6 +274,95 @@ class SummaryViewModel(
 
     fun testBlikAmbiguity() {
         blikAmbiguityEvent.value = null
+    }
+
+    fun checkInstallment() {
+        installmentRepository.getOrderDetails(persistentRepository.orderId)
+            .toObservable()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    if (response.orderStatusResponses[0].status == "COMPLETED") {
+                        retrieveInstallments(persistentRepository.orderId)
+                    }
+                    println("Data in response: $response")
+                },
+                { throwable ->
+                    val sw = StringWriter()
+                    throwable.printStackTrace(PrintWriter(sw))
+                    println("ERROR: $throwable")
+                    println("STACKTRACE: $sw")
+                    paymentErrorEvent.value = R.string.payment_status_error
+                }
+            ).register()
+    }
+
+    fun requestInstallment(installmentSelected: InstallmentSelected, proposalId: String) {
+        installmentRepository.selectInstallmentOption(installmentSelected, proposalId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    paymentSuccessEvent.value = R.string.payment_status_installment_success
+                },
+                { throwable ->
+                    val sw = StringWriter()
+                    throwable.printStackTrace(PrintWriter(sw))
+                    println("ERROR: $throwable")
+                    println("STACKTRACE: $sw")
+                    paymentErrorEvent.value = R.string.payment_status_error
+                }).register()
+    }
+
+    private fun retrieveInstallments(orderId: String) {
+        installmentRepository.getTransactionDetails(orderId)
+            .toObservable()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    val cardInstallmentProposal = response.transactions[0].card?.cardInstallmentProposal
+                    if (cardInstallmentProposal == null) {
+                        println("Cannot take installment: $response")
+                        installmentOption.set(false)
+                        return@subscribe
+                    }
+                    val proposalId = cardInstallmentProposal.proposalId
+                    retrieveInstallmentDecision(proposalId)
+                    println("Data in response: $response")
+                },
+                { throwable ->
+                    val sw = StringWriter()
+                    throwable.printStackTrace(PrintWriter(sw))
+                    println("ERROR: $throwable")
+                    println("STACKTRACE: $sw")
+                    paymentErrorEvent.value = R.string.payment_status_error
+                }
+            ).register()
+    }
+
+    private fun retrieveInstallmentDecision(proposalId: String) {
+        val disposable = installmentRepository.getInstallmentOption(proposalId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    if (it.installmentDecision != null) {
+                        //merchant could display an information regarding this flow
+                        println("Installment previously taken: $it")
+                        installmentOption.set(false)
+                        installmentAlreadyTaken.value = null
+                        return@subscribe
+                    }
+
+                    persistentRepository.proposalId = proposalId
+                    installmentProposalEvent.value = proposalId
+
+                }, {
+                    println("Error during fetching installments: $it")
+                }).register()
+
     }
 }
 

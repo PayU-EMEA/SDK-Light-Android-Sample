@@ -34,4 +34,9 @@
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
     <string name="theme_default">Domyślny systemu</string>
+
+    <!-- Installment -->
+    <string name="payment_status_installment_success">Transakcja została rozłożona na raty</string>
+    <string name="installment_taken">Raty na tą płatność zostały już wzięte</string>
+
 </resources>

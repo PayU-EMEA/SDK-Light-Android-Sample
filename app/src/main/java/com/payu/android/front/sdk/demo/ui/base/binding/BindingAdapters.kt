@@ -35,6 +35,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("enableIf")
+    fun changeViewIsEnable(view: View, bool: Boolean) {
+        view.isEnabled = bool
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["enabledIf", "alpha"], requireAll = false)
     fun enabledIf(view: View, bool: Boolean?, alpha: Float?) {
         val newAlpha = alpha ?: MIN_ALPHA
@@ -52,8 +58,8 @@ object BindingAdapters {
     fun bitmapSource(view: ImageView, uri: String?) {
         if (!uri.isNullOrEmpty()) {
             Glide.with(view.context)
-                    .load(uri)
-                    .into(view)
+                .load(uri)
+                .into(view)
         }
     }
 
@@ -80,7 +86,10 @@ object BindingAdapters {
         for (drawable in drawables) {
             if (drawable != null) {
                 drawable.mutate()
-                DrawableCompat.setTint(drawable, ResourcesCompat.getColor(textView.resources, color, null))
+                DrawableCompat.setTint(
+                    drawable,
+                    ResourcesCompat.getColor(textView.resources, color, null)
+                )
             }
         }
     }
@@ -94,7 +103,12 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("alphaCondition", "alphaValue", "enableAnimation")
-    fun animateAlpha(view: View, alphaCondition: Boolean, alphaValue: Float, enableAnimation: Boolean) {
+    fun animateAlpha(
+        view: View,
+        alphaCondition: Boolean,
+        alphaValue: Float,
+        enableAnimation: Boolean
+    ) {
         if (alphaCondition) {
             if (enableAnimation) {
                 view.animate().alpha(alphaValue)

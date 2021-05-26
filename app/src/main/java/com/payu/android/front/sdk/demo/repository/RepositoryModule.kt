@@ -10,7 +10,8 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    fun providePersistentRepository(context: Context): PersistentRepository = PersistentRepository(context)
+    fun providePersistentRepository(context: Context): PersistentRepository =
+        PersistentRepository(context)
 
     @Provides
     @Singleton
@@ -23,7 +24,16 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePaymentMethodsRepository(authRepository: AuthenticationRepository, payUApi: PayUApi): PaymentMethodsRepository
-            = PaymentMethodsRepository(authRepository, payUApi)
+    fun providePaymentMethodsRepository(
+        authRepository: AuthenticationRepository,
+        payUApi: PayUApi
+    ): PaymentMethodsRepository = PaymentMethodsRepository(authRepository, payUApi)
+
+    @Provides
+    @Singleton
+    fun provideInstallmentRepository(
+        payUApi: PayUApi,
+        authRepository: AuthenticationRepository
+    ): InstallmentRepository = InstallmentRepository(payUApi, authRepository)
 
 }

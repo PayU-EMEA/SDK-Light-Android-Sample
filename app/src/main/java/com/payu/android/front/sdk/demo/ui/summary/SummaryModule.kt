@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.payu.android.front.sdk.demo.api.PayUApi
 import com.payu.android.front.sdk.demo.repository.AuthenticationRepository
+import com.payu.android.front.sdk.demo.repository.InstallmentRepository
 import com.payu.android.front.sdk.demo.repository.PaymentMethodsRepository
+import com.payu.android.front.sdk.demo.repository.PersistentRepository
 import com.payu.android.front.sdk.demo.ui.di.ViewModelKey
 import dagger.Module
 import dagger.Provides
@@ -25,15 +27,26 @@ abstract class SummaryModule {
         fun provideSummaryViewModel(
             authRepository: AuthenticationRepository,
             paymentMethodsRepository: PaymentMethodsRepository,
+            persistentRepository: PersistentRepository,
+            installmentRepository: InstallmentRepository,
             api: PayUApi,
             gson: Gson
-        ): ViewModel = SummaryViewModel(authRepository, paymentMethodsRepository, api, gson)
+        ): ViewModel = SummaryViewModel(
+            authRepository,
+            paymentMethodsRepository,
+            persistentRepository,
+            installmentRepository,
+            api,
+            gson
+        )
     }
 
     @Module
     class Injectors {
         @Provides
-        fun provideSummaryViewModel(factory: ViewModelProvider.Factory, target: RollSummaryActivity): SummaryViewModel
-                = ViewModelProvider(target, factory).get(SummaryViewModel::class.java)
+        fun provideSummaryViewModel(
+            factory: ViewModelProvider.Factory,
+            target: RollSummaryActivity
+        ): SummaryViewModel = ViewModelProvider(target, factory).get(SummaryViewModel::class.java)
     }
 }

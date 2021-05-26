@@ -84,7 +84,7 @@ dependencies {
     implementation "com.payu.android.front.sdk:payment-library-webview-module:$project.payuSDK"
     implementation "com.payu.android.front.sdk:payment-library-google-pay-module:$project.payuSDK"
     implementation "com.payu.android.front.sdk:payment-library-google-pay-adapter:$project.payuSDK"
-
+    implementation "com.payu.android.front.sdk:payment-installments:$project.payuSDK"
     testImplementation "junit:junit:$project.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$project.junitAssertionsVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$project.espressoVersion"

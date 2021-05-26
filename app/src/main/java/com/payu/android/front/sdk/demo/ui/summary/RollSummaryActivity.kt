@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.gson.Gson
 import com.payu.android.front.sdk.demo.model.RollModel
 import com.payu.android.front.sdk.demo.ui.base.ActivityWithMenu
 import com.payu.android.front.sdk.demo.ui.login.LoginActivity
@@ -18,6 +16,7 @@ import com.payu.android.front.sdk.demo.ui.main.BUNDLE_DATA
 import com.payu.android.front.sdk.frontsdk.R
 import com.payu.android.front.sdk.frontsdk.databinding.ActivityRollSummaryBinding
 import com.payu.android.front.sdk.payment_add_card_module.service.CvvValidationService
+import com.payu.android.front.sdk.payment_installments.mastercard.offer.view.OfferInstallmentsActivity
 import com.payu.android.front.sdk.payment_library_card_scanner.scanner.pay.card.PayCardScanner
 import com.payu.android.front.sdk.payment_library_core_android.events.AuthorizationDetails
 import com.payu.android.front.sdk.payment_library_google_pay_adapter.GooglePayAdapter
@@ -29,8 +28,6 @@ import com.payu.android.front.sdk.payment_library_payment_methods.model.PaymentM
 import com.payu.android.front.sdk.payment_library_webview_module.web.authorization.WebPaymentStatus
 import com.payu.android.front.sdk.payment_library_webview_module.web.service.WebPaymentService
 import dagger.android.AndroidInjection
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
 import javax.inject.Inject
 
 private val TAG = RollSummaryActivity::class.java.name
@@ -74,18 +71,21 @@ class RollSummaryActivity : ActivityWithMenu() {
         override val isBlikAuthorizationCodeProvided: Boolean
             get() = binding.paymentChooserWidget.isBlikAuthorizationCodeProvided
 
-        override fun getPaymentMethod(): PaymentMethod? = binding.paymentChooserWidget.paymentMethod.value
+        override fun getPaymentMethod(): PaymentMethod? =
+            binding.paymentChooserWidget.paymentMethod.value
 
         override fun cleanPaymentMethods() {
             binding.paymentChooserWidget.cleanPaymentMethods()
         }
     }
 
-     private fun observeUnauthoriseEvent() {
+    private fun observeUnauthoriseEvent() {
         viewModel.unauthoriseEvent.observe(this, Observer {
             startActivity(
-                    Intent(this, LoginActivity::class.java)
-                            .apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK }
+                Intent(this, LoginActivity::class.java)
+                    .apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
             )
         })
     }
@@ -175,9 +175,9 @@ class RollSummaryActivity : ActivityWithMenu() {
 
     private fun createCart() = viewModel.rollModel?.rollPrice?.let { price ->
         Cart.Builder()
-                .withTotalPrice(price)
-                .withCurrency(Currency.PLN)
-                .build()
+            .withTotalPrice(price)
+            .withCurrency(Currency.PLN)
+            .build()
     } ?: Cart.Builder().build()
 
     private fun handlePaymentResult(requestCode: Int, data: Intent, resultCode: Int) {
@@ -190,7 +190,10 @@ class RollSummaryActivity : ActivityWithMenu() {
                     showToast(getString(R.string.payment_blik_ambiguity, it.toString()))
                 }
             }
-            GooglePayService.REQUEST_CODE_GOOGLE_PAY_PAYMENT -> handleGooglePayResult(resultCode, data)
+            GooglePayService.REQUEST_CODE_GOOGLE_PAY_PAYMENT -> handleGooglePayResult(
+                resultCode,
+                data
+            )
         }
     }
 
@@ -239,6 +242,17 @@ class RollSummaryActivity : ActivityWithMenu() {
         }
     }
 
+    private fun observeInstallmentAlreadyTaken() {
+        viewModel.installmentAlreadyTaken.observe(this, {
+            Toast.makeText(this, getString(R.string.installment_taken), Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun observeInstallmentEvent() {
+        viewModel.installmentProposalEvent.observe(this, {
+            OfferInstallmentsActivity.startForResult(this)
+        })
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
@@ -258,6 +272,9 @@ class RollSummaryActivity : ActivityWithMenu() {
         observePaymentEvent()
 
         observePaymentMethodChange()
+
+        observeInstallmentEvent()
+        observeInstallmentAlreadyTaken()
     }
 
     /**

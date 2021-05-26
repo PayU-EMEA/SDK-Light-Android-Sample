@@ -122,6 +122,21 @@
                     app:layout_constraintTop_toBottomOf="@id/item_container"
                     app:visibleIf="@{!model.showProgress}" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/installment_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> model.checkInstallment()}"
+                    android:text="Rozłóż na raty"
+                    android:textColor="@color/text_color_button"
+                    android:textSize="@dimen/text_size_button"
+                    app:cornerRadius="@dimen/padding_xlarge"
+                    app:enableIf="@{model.installmentOption}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/payment_button"
+                    app:visibleIf="@{!model.showProgress}" />
+
                 <ProgressBar
                     android:id="@+id/loading"
                     android:layout_width="wrap_content"

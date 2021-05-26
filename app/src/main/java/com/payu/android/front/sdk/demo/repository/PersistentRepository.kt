@@ -12,7 +12,11 @@ private const val SETTINGS_SAVE_CREDENTIALS_KEY = "save_credentials"
  * https://developers.payu.com/pl/overview.html#Testing
  */
 private const val POS_ID_DEFAULT_VALUE = "300746"
-private const val CLIENT_SECRET_DEFAULT_VALUE = "2ee86a66e5d97e3fadc400c9f19b065d"//"12f071174cb7eb79d4aac5bc2f07563f"
+private const val CLIENT_SECRET_DEFAULT_VALUE =
+    "2ee86a66e5d97e3fadc400c9f19b065d"//"12f071174cb7eb79d4aac5bc2f07563f"
+
+private const val INSTALLMENTS_PROPOSAL_ID = "proposal_id"
+private const val ORDER_ID = "order_id"
 
 class PersistentRepository(private val context: Context) {
 
@@ -37,5 +41,20 @@ class PersistentRepository(private val context: Context) {
             ?: CLIENT_SECRET_DEFAULT_VALUE
         set(value) {
             getSettings().edit().putString(SETTINGS_CLIENT_SECRET_KEY, value).apply()
+        }
+
+    //For test purpose we will store locally installment proposalId
+    var proposalId
+        get() = getSettings().getString(INSTALLMENTS_PROPOSAL_ID, "")
+            ?.ifEmpty { "" }
+            ?: ""
+        set(value) {
+            getSettings().edit().putString(INSTALLMENTS_PROPOSAL_ID, value).apply()
+        }
+
+    var orderId
+        get() = getSettings().getString(ORDER_ID, "")?.ifEmpty { "" } ?: ""
+        set(value) {
+            getSettings().edit().putString(ORDER_ID, value).apply()
         }
 }
