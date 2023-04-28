@@ -215,7 +215,7 @@ class RollSummaryActivity : ActivityWithMenu() {
 
     private fun handleCvvValidation(cvvPaymentUrl: String) {
         CvvValidationService.validateCvv(
-            this,
+            supportFragmentManager,
             AuthorizationDetails.Builder()
                 .withLink(cvvPaymentUrl)
                 .build()
