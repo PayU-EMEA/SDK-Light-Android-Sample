@@ -48,7 +48,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycleComponentVersion"
     implementation "com.google.guava:guava:$project.guavaVersion"
 
-    implementation 'com.github.nitrico.lastadapter:lastadapter:2.3.0'
+    implementation 'com.github.nitrico:lastadapter:master'
 
 
     // Glide
