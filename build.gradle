@@ -18,7 +18,6 @@ allprojects {
     repositories {
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://pay.cards/maven" }
         google()
         maven { url "https://payu.jfrog.io/artifactory/mobile-sdk-gradle-local/" }
     }
@@ -53,7 +52,7 @@ project.ext {
     okhttpLogInterceptorVersion = "4.8.0"
     playServicesVersion = "18.0.0"
     cardsPayVersion = "1.1.0"
-    payuSDK = "1.0.21"
+    payuSDK = "1.0.22"
 }
 
 project.ext {

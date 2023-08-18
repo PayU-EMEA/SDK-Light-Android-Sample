@@ -1,3 +1,6 @@
+# 1.0.22
+* Fixed problem with dependence in card scanner module
+
 # 1.0.21
 * Fixed increasing number of requests after clear methods
 
