@@ -1,3 +1,6 @@
+# 1.0.23
+* Updated whitelist PBL
+
 # 1.0.22
 * Fixed problem with dependence in card scanner module
 
