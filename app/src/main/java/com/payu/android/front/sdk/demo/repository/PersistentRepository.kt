@@ -11,9 +11,8 @@ private const val SETTINGS_SAVE_CREDENTIALS_KEY = "save_credentials"
  * Sandbox credentials:
  * https://developers.payu.com/pl/overview.html#Testing
  */
-private const val POS_ID_DEFAULT_VALUE = "300746"
-private const val CLIENT_SECRET_DEFAULT_VALUE =
-    "2ee86a66e5d97e3fadc400c9f19b065d"//"12f071174cb7eb79d4aac5bc2f07563f"
+private const val POS_ID_DEFAULT_VALUE = "202443"
+private const val CLIENT_SECRET_DEFAULT_VALUE = "4f0b643b2dc1fe9e0cad175006ecb9b7"//"12f071174cb7eb79d4aac5bc2f07563f"
 
 private const val INSTALLMENTS_PROPOSAL_ID = "proposal_id"
 private const val ORDER_ID = "order_id"

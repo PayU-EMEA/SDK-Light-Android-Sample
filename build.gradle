@@ -39,7 +39,7 @@ project.ext {
     recyclerViewVersion = "1.1.0"
     annotationVersion = "1.1.0"
     materialVersion = "1.1.0"
-    espressoVersion = "3.1.0"
+    espressoVersion = "3.5.1"
     mockitoVersion = "1.10.16"
     catchException2Version = "1.4.4"
     constraintLayoutVersion = "1.1.3"

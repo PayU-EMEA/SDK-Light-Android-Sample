@@ -16,7 +16,7 @@ import javax.inject.Singleton
 private const val SANDBOX = "sandbox"
 
 private const val BASE_URL_PROD = "https://secure.payu.com"
-private const val BASE_URL_SANDBOX = "https://secure.snd.payu.com"
+private const val BASE_URL_SANDBOX = "https://secure.sndbeta.payu.com"
 
 @Module
 class NetworkModule {

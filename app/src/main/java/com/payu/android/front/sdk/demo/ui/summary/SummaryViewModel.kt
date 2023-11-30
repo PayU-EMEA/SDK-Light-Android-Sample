@@ -70,7 +70,12 @@ class SummaryViewModel(
         authorizationCode: String?
     ): Single<CreateOrderRequest> {
         val createOrderRequest = CreateOrderRequest(
-            buyer = Buyer("fuu_ggondek@objectivity.co.uk"),
+            buyer = Buyer(
+                email = "testaccount1+credit-user@devil.allegro.pl",
+                firstName = "Jaroslaw",
+                lastName = "Testowy",
+                phone = "123123123"
+            ),
             currencyCode = "PLN",
             description = "Demo App",
             merchantPosId = authRepository.posId,
