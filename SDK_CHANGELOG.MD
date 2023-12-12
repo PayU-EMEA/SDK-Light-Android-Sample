@@ -1,3 +1,6 @@
+# 1.0.24
+* Fixed validate card expire
+
 # 1.0.23
 * Updated whitelist PBL
 
