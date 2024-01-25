@@ -2,8 +2,6 @@ package com.payu.android.front.sdk.demo.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.payu.android.front.sdk.demo.repository.AuthenticationRepository
 import com.payu.android.front.sdk.demo.repository.ProductRepository
 import com.payu.android.front.sdk.demo.ui.di.ViewModelKey
 import dagger.Module

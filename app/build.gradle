@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$project.constraintLayoutVersion"
     implementation "com.google.android.material:material:$project.materialVersion"
     implementation "androidx.recyclerview:recyclerview:$project.recyclerViewVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycleComponentVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata:$project.lifecycleComponentVersion"
     implementation "com.google.guava:guava:$project.guavaVersion"
 
     implementation 'com.github.nitrico:lastadapter:master'

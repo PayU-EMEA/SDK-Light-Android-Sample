@@ -2,7 +2,6 @@ package com.payu.android.front.sdk.demo.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.payu.android.front.sdk.demo.api.PayUApi
 import com.payu.android.front.sdk.demo.repository.AuthenticationRepository
 import com.payu.android.front.sdk.demo.repository.PersistentRepository

@@ -1,3 +1,9 @@
+# 1.0.25
+* Updated link to Terms
+* Updated PayU logo
+* Removed phone and email contact
+* Replaced deprecate lifecycle-extensions with lifecycle-livedata
+
 # 1.0.24
 * Fixed validate card expire
 
